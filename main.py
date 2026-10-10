@@ -3,6 +3,7 @@ from perpustakaan import fileio, processing, validasi
 FILE_DATA = "data_buku.txt"
 FILE_LAPORAN = "laporan.txt"
 
+#untuk tampilan menu
 def tampil_menu():
     print("\n===== PERPUSTAKAAN =====")
     print("1. Buat file data")
@@ -14,9 +15,11 @@ def tampil_menu():
     print("7. Buat laporan")
     print("0. Keluar")
 
+#untuk jeda sebelum kembali ke menu
 def jeda():
     input("\nTekan Enter untuk kembali ke menu...")
 
+#untuk menu tambah buku
 def menu_tambah():
     try:
         kode = validasi.cek_kosong(input("Kode    : "), "Kode")
@@ -28,6 +31,7 @@ def menu_tambah():
         print("Input salah:", e)
         return
 
+#untuk menambahkan buku ke file data
     perpus = processing.Perpustakaan(fileio.baca_buku(FILE_DATA))
     if perpus.cari_kode(kode) is not None:
         print("Kode sudah dipakai")
@@ -37,12 +41,14 @@ def menu_tambah():
     fileio.tambah_buku(FILE_DATA, buku)
     print("Buku berhasil ditambah")
 
+#unutuk menu lihat daftar buku
 def menu_lihat():
     perpus = processing.Perpustakaan(fileio.baca_buku(FILE_DATA))
     urutan = input("Urutkan berdasarkan (judul/tahun/stok): ")
     for buku in perpus.urutkan(berdasarkan=urutan):
         buku.tampil()
 
+#untuk menu cari buku
 def menu_cari():
     perpus = processing.Perpustakaan(fileio.baca_buku(FILE_DATA))
     hasil = perpus.cari_judul(input("Kata kunci judul: "))
@@ -51,7 +57,7 @@ def menu_cari():
     for buku in hasil:
         buku.tampil()
 
-
+#untuk menu pinjam dan kembalikan buku
 def menu_pinjam(pinjam=True):
     perpus = processing.Perpustakaan(fileio.baca_buku(FILE_DATA))
     buku = perpus.cari_kode(input("Kode buku: "))
@@ -67,7 +73,8 @@ def menu_pinjam(pinjam=True):
         print("Berhasil. Stok sekarang:", buku.stok)
     except ValueError as e:
         print("Gagal:", e)
-
+        
+#untuk menu laporan
 def menu_laporan():
     perpus = processing.Perpustakaan(fileio.baca_buku(FILE_DATA))
     teks = perpus.buat_laporan()
@@ -75,6 +82,7 @@ def menu_laporan():
     fileio.tulis_laporan(FILE_LAPORAN, teks)
     print("Laporan disimpan di", FILE_LAPORAN)
 
+#untuk menjalankan program utama
 def main():
     while True:
         tampil_menu()

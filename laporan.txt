@@ -1,0 +1,5 @@
+=== LAPORAN PERPUSTAKAAN ===
+Jumlah judul     : 4
+Total stok       : 18
+Rata-rata tahun  : 2022
+Stok terbanyak   : Pemograman Terstruktur
